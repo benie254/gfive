@@ -4,16 +4,17 @@ from rest_framework.views import APIView
 from postApp.serializer import BookSerializer
 from postApp.models import Book 
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
 class OurBookLibrary(APIView):
-    # permission_classes = (IsAdminOrReadOnly,)
     def get(self,request,format=None):
         books = Book.objects.all()
         serializers = BookSerializer(books,many=True)
         return Response(serializers.data)
 
     def post(self,request,format=None):
+        permission_classes = (IsAdminOrReadOnly,)
         serializers = BookSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
