@@ -8,8 +8,8 @@ class Book(models.Model):
     description = models.CharField(max_length=120)
     publisher = models.CharField(max_length=120)
     
-class Like(models.Model):
-    like = models.PositiveIntegerField()
+class Rating(models.Model):
+    rating = models.PositiveIntegerField(null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     book = models.ForeignKey(Book,on_delete=models.CASCADE,null=True)
   

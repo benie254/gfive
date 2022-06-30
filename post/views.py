@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from post.serializer import BookSerializer,LikeSerializer,CommentSerializer
-from post.models import Book,Like,Comment 
+from post.serializer import BookSerializer,RatingSerializer,CommentSerializer
+from post.models import Book,Rating,Comment 
 from rest_framework import status
 from .permissions import IsAdminOrReadOnly
 
@@ -37,15 +37,15 @@ class Comments(APIView):
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
     
 
-class Likes(APIView):
+class Ratings(APIView):
     def get(self,request,pk,format=None):
-        likes = Like.objects.all().filter(book_id=pk)
-        serializers = LikeSerializer(likes,many=True)
+        ratings = Rating.objects.all().filter(book_id=pk)
+        serializers = RatingSerializer(ratings,many=True)
         return Response(serializers.data)
 
     def post(self,request,pk,format=None):
         permission_classes = (IsAdminOrReadOnly,)
-        serializers = LikeSerializer(data=request.data)
+        serializers = RatingSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
