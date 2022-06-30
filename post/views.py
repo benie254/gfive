@@ -43,7 +43,7 @@ class Likes(APIView):
         serializers = LikeSerializer(likes,many=True)
         return Response(serializers.data)
 
-    def post(self,request,format=None):
+    def post(self,request,pk,format=None):
         permission_classes = (IsAdminOrReadOnly,)
         serializers = LikeSerializer(data=request.data)
         if serializers.is_valid():
