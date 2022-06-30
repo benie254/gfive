@@ -28,7 +28,7 @@ class Comments(APIView):
         serializers = CommentSerializer(comments,many=True)
         return Response(serializers.data)
 
-    def post(self,request,format=None):
+    def post(self,request,pk,format=None):
         permission_classes = (IsAdminOrReadOnly,)
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
