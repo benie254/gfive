@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'postApp',
+    'post',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'PostProj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gfive',
+        'NAME': 'gifive',
         'USER': 'benie',
         'PASSWORD': '12345'
     }
