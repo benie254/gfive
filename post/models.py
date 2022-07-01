@@ -8,7 +8,7 @@ class Book(models.Model):
     author = models.CharField(max_length=60)
     description = models.CharField(max_length=120)
     publisher = models.CharField(max_length=120)
-    image_url = CloudinaryField('Featured image',default='')
+    image = CloudinaryField('Featured image',default='')
     
 class Rating(models.Model):
     rating = models.PositiveIntegerField(null=True)
