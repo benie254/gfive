@@ -14,7 +14,7 @@ class OurBookLibrary(APIView):
         return Response(serializers.data)
 
     def post(self,request,format=None):
-        permission_classes = (IsAdminOrReadOnly,)
+        # permission_classes = (IsAdminOrReadOnly,)
         serializers = BookSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
