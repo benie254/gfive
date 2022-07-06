@@ -4,8 +4,7 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Category(models.Model):
-    CHOICES = (('P','Poetry'),('F','Fiction'),('FL','folklore'))
-    category = models.CharField(max_length=100,choices=CHOICES,null=True)
+    category = models.CharField(max_length=100,null=True)
     
 class Book(models.Model):
     title = models.CharField(max_length=60)
