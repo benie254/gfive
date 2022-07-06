@@ -3,12 +3,22 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
+class Category(models.Model):
+    CHOICES = (('P','Poetry'),('F','Fiction'),('FL','folklore'))
+    category = models.CharField(max_length=100,choices=CHOICES,null=True)
+    
 class Book(models.Model):
     title = models.CharField(max_length=60)
     author = models.CharField(max_length=60)
     description = models.CharField(max_length=120)
     publisher = models.CharField(max_length=120)
     image = CloudinaryField('Featured image',null=True)
+    price = models.DecimalField(max_digits=10,decimal_places=2,null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
+    
+    def __str__(self):
+        return str(self.item) + ": $" + str(self.price)
     
 class Rating(models.Model):
     rating = models.PositiveIntegerField(null=True)
