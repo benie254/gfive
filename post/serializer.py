@@ -5,7 +5,7 @@ from .models import Book,Rating,Comment
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book 
-        fields = ('id','title','author','description','publisher')
+        fields = ('id','title','category','author','description','publisher','price')
  
  
 class RatingSerializer(serializers.ModelSerializer):
