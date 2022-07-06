@@ -5,7 +5,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('api/books/',views.OurBookLibrary.as_view()),
-    path('api/books/categories/',views.OurBookCategories.as_view()),
     path('api/books/<int:pk>/',views.BookDetails.as_view()),
     path('api/books/search/title-<str:book_title>/',views.SearchResults.as_view()),
     path('api/books/<int:pk>/comments/',views.Comments.as_view()),
