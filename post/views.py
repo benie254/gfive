@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from post.serializer import BookSerializer,RatingSerializer,CommentSerializer
 from post.models import Book,Rating,Comment  
 from rest_framework import status
-from .permissions import IsAdminOrReadOnly
+
 
 # Create your views here.
 class OurBookLibrary(APIView):
@@ -14,7 +14,6 @@ class OurBookLibrary(APIView):
         return Response(serializers.data)
 
     def post(self,request,format=None):
-        # permission_classes = (IsAdminOrReadOnly,)
         serializers = BookSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -57,7 +56,6 @@ class Comments(APIView):
         return Response(serializers.data)
 
     def post(self,request,pk,format=None):
-        permission_classes = (IsAdminOrReadOnly,)
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -72,7 +70,6 @@ class Ratings(APIView):
         return Response(serializers.data)
 
     def post(self,request,pk,format=None):
-        permission_classes = (IsAdminOrReadOnly,)
         serializers = RatingSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
