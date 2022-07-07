@@ -17,7 +17,9 @@ class Book(models.Model):
         return str(self.item) + ": $" + str(self.price)
     
 class Rating(models.Model):
-    rating = models.PositiveIntegerField(null=True)
+    rating_enjoyment = models.PositiveIntegerField(null=True)
+    rating_recommend = models.PositiveIntegerField(null=True)
+    rating_purchase = models.PositiveIntegerField(null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     book = models.ForeignKey(Book,on_delete=models.CASCADE,null=True)
   
