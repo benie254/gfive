@@ -14,7 +14,7 @@ class Book(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     
     def __str__(self):
-        return str(self.item) + ": $" + str(self.price)
+        return str(self.item) + ": Ksh" + str(self.price)
     
 class Rating(models.Model):
     rating_enjoyment = models.PositiveIntegerField(null=True)
