@@ -29,7 +29,7 @@ class BookSerializer(serializers.ModelSerializer):
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating 
-        fields = ('id','rating','book','user')
+        fields = ('id','rating_enjoyment','rating_recommend','rating_purchase','book','user')
 
         
 class CommentSerializer(serializers.ModelSerializer):
