@@ -49,6 +49,13 @@ class MyBooks(APIView):
         return Response(serializers.data)
     
 
+class AllComments(APIView):
+    def get(self,request,format=None):
+        comments = Comment.objects.all()
+        serializers = CommentSerializer(comments,many=True)
+        return Response(serializers.data)  
+    
+
 class Comments(APIView):
     def get(self,request,pk,format=None):
         comments = Comment.objects.all().filter(book_id=pk)
@@ -61,6 +68,13 @@ class Comments(APIView):
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    
+class AllRatings(APIView):
+    def get(self,request,format=None):
+        ratings = Rating.objects.all()
+        serializers = RatingSerializer(ratings,many=True)
+        return Response(serializers.data)
     
 
 class Ratings(APIView):
