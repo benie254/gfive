@@ -1,5 +1,6 @@
 from django.urls import path,re_path as url
-from . import views,RegisterView, LoginView, UserView, LogoutView
+from . import views
+from post.views import RegisterView, LoginView, UserView, LogoutView
 from rest_framework.authtoken.views import obtain_auth_token
 
 

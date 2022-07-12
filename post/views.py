@@ -5,7 +5,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from post.serializer import BookSerializer,RatingSerializer,CommentSerializer
 from post.models import Book,Rating,Comment  
 from rest_framework import status
-from .serializers import UserSerializer
+from .serializer import UserSerializer
 from .models import User
 import jwt, datetime
 
