@@ -86,11 +86,11 @@ class LogoutView(APIView):
 
 class UserBio(APIView):
     def get(self,request,user_id,format=None):
-        bio = Bio.objects.all().filter(pk=user_id)
+        bio = Bio.objects.all().get(pk=user_id)
         serializers = BioSerializer(bio,many=False)
         return Response(serializers.data)
     
-    def post(self,request,format=None):
+    def post(self,request,user_id,format=None):
         serializers = BioSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
