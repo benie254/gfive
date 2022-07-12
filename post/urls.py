@@ -20,7 +20,7 @@ urlpatterns = [
     path('api/books/<int:book_id>/ratings/',views.Ratings.as_view()),
     path('api/books/rate-book/',views.AddRating.as_view()),
     path('api/user/<int:user_id>/bio/',views.UserBio.as_view()),
-    path('api/user/add-bio/bio/',views.AddBio.as_view()),
+    path('api/user/add-bio/',views.AddBio.as_view()),
     path('api/user/<str:user_id>/books/',views.ReadingList.as_view()),
     path('api/user/<str:user_id>/books/',views.MyBooks.as_view()),
     url(r'^api-token-auth/', obtain_auth_token),
