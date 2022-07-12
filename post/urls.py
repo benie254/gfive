@@ -17,7 +17,7 @@ urlpatterns = [
     path('api/books/<int:pk>/comments/',views.Comments.as_view()),
     path('api/books/ratings/',views.AllRatings.as_view()),
     path('api/books/<int:pk>/ratings/',views.Ratings.as_view()),
-    path('api/books/<int:user_id>/bio/',views.UserBio.as_view()),
+    path('api/user/<int:user_id>/bio/',views.UserBio.as_view()),
     path('api/user/<str:user_id>/books/',views.ReadingList.as_view()),
     path('api/user/<str:user_id>/books/',views.MyBooks.as_view()),
     url(r'^api-token-auth/', obtain_auth_token),
