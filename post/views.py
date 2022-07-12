@@ -89,8 +89,9 @@ class UserBio(APIView):
         bio = Bio.objects.all().get(pk=user_id)
         serializers = BioSerializer(bio,many=False)
         return Response(serializers.data)
-    
-    def post(self,request,user_id,format=None):
+  
+class AddBio(APIView):  
+    def post(self,request,format=None):
         serializers = BioSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -148,12 +149,13 @@ class AllComments(APIView):
     
 
 class Comments(APIView):
-    def get(self,request,pk,format=None):
-        comments = Comment.objects.all().filter(book_id=pk)
+    def get(self,request,book_id,format=None):
+        comments = Comment.objects.all().filter(pk=book_id)
         serializers = CommentSerializer(comments,many=True)
         return Response(serializers.data)
 
-    def post(self,request,pk,format=None):
+class AddComment(APIView):
+    def post(self,request,format=None):
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -169,12 +171,14 @@ class AllRatings(APIView):
     
 
 class Ratings(APIView):
-    def get(self,request,pk,format=None):
-        ratings = Rating.objects.all().filter(book_id=pk)
+    def get(self,request,book_id,format=None):
+        ratings = Rating.objects.all().filter(pk=book_id)
         serializers = RatingSerializer(ratings,many=True)
         return Response(serializers.data)
 
-    def post(self,request,pk,format=None):
+
+class AddRating(APIView):
+    def post(self,request,format=None):
         serializers = RatingSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
