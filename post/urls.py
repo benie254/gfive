@@ -7,7 +7,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('api/users/register/', RegisterView.as_view()),
     path('api/users/login/', LoginView.as_view()),
-    path('api/user/', UserView.as_view()),
+    path('api/users/', UserView.as_view()),
     path('api/users/logout', LogoutView.as_view()),
     path('api/books/',views.OurBookLibrary.as_view()),
     path('api/books/<int:pk>/',views.BookDetails.as_view()),
