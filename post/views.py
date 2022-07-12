@@ -47,6 +47,13 @@ class LoginView(APIView):
             'jwt': token
         }
         return response
+    
+class AllRegisteredUsers(APIView):
+
+    def get(self, request):
+        user = User.objects.all()
+        serializer = UserSerializer(user,many=True)
+        return Response(serializer.data)
 
 
 class UserView(APIView):
@@ -77,7 +84,6 @@ class LogoutView(APIView):
         return response
 
 
-# Create your views here.
 class OurBookLibrary(APIView):
     def get(self,request,format=None):
         books = Book.objects.all()
