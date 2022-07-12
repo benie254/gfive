@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Book,Rating,Comment 
-from .models import User
+from .models import User,Bio
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,6 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+class BioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bio  
+        fields = ('id','bio','profile_photo','user')
 
 
 class BookSerializer(serializers.ModelSerializer):

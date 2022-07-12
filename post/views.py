@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from post.serializer import BookSerializer,RatingSerializer,CommentSerializer
-from post.models import Book,Rating,Comment  
+from post.models import Book,Rating,Comment,Bio  
 from rest_framework import status
-from .serializer import UserSerializer
+from .serializer import UserSerializer,BioSerializer
 from .models import User
 import jwt, datetime
 
@@ -82,6 +82,22 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+    
+
+class UserBio(APIView):
+    def post(self,request,format=None):
+        serializers = BioSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data,status=status.HTTP_201_CREATED)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+
+class ViewUserBio(APIView):
+    def get(self,request,user_id,format=None):
+        bio = Bio.objects.all().get(pk=user_id)
+        serializers = BioSerializer(bio,many=False)
+        return Response(serializers.data)
 
 
 class OurBookLibrary(APIView):
@@ -139,6 +155,8 @@ class Comments(APIView):
         serializers = CommentSerializer(comments,many=True)
         return Response(serializers.data)
 
+
+class PostComment(APIView):
     def post(self,request,pk,format=None):
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
@@ -160,6 +178,7 @@ class Ratings(APIView):
         serializers = RatingSerializer(ratings,many=True)
         return Response(serializers.data)
 
+class PostRating(APIView):
     def post(self,request,pk,format=None):
         serializers = RatingSerializer(data=request.data)
         if serializers.is_valid():

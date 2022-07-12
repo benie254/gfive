@@ -13,6 +13,11 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 
+class Bio(models.Model):
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    bio = models.CharField(max_length=255,null=True)
+    profile_photo = CloudinaryField('Featured image',null=True)
+
 class Book(models.Model):
     title = models.CharField(max_length=60)
     author = models.CharField(max_length=60)
