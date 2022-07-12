@@ -1,9 +1,13 @@
 from django.urls import path,re_path as url
-from . import views
+from . import views,RegisterView, LoginView, UserView, LogoutView
 from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
+    path('api/users/register/', RegisterView.as_view()),
+    path('api/users/login/', LoginView.as_view()),
+    path('api/user/', UserView.as_view()),
+    path('api/users/logout', LogoutView.as_view()),
     path('api/books/',views.OurBookLibrary.as_view()),
     path('api/books/<int:pk>/',views.BookDetails.as_view()),
     path('api/books/search/title-<str:book_title>/',views.SearchResults.as_view()),
