@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import Book,Rating,Comment 
-from .models import User,Bio
+from .models import User,Profile 
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'email', 'password']
+        fields = ['id', 'username', 'email', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -19,10 +19,10 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
-class BioSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Bio  
-        fields = ('id','bio','profile_photo','user')
+        model = Profile   
+        fields = ('id','user','profile_picture','bio','name','phone_number','email')
 
 
 class BookSerializer(serializers.ModelSerializer):

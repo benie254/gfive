@@ -3,20 +3,26 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 from post.serializer import BookSerializer,RatingSerializer,CommentSerializer
-from post.models import Book,Rating,Comment,Bio  
+from post.models import Book,Rating,Comment,Profile   
 from rest_framework import status
-from .serializer import UserSerializer,BioSerializer
+from .serializer import UserSerializer,ProfileSerializer
 from .models import User
 import jwt, datetime
+from rest_framework.generics import CreateAPIView
+from rest_framework import permissions
 
 
 # Create your views here.
-class RegisterView(APIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+# class RegisterView(APIView):
+#     def post(self, request):
+#         serializer = UserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+class RegisterView(CreateAPIView):
+    model = User.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = UserSerializer
 
 
 class LoginView(APIView):
@@ -84,15 +90,15 @@ class LogoutView(APIView):
         return response
     
 
-class UserBio(APIView):
+class UserProfile(APIView):
     def get(self,request,user_id,format=None):
-        bio = Bio.objects.all().get(pk=user_id)
-        serializers = BioSerializer(bio,many=False)
+        bio = Profile.objects.all().get(pk=user_id)
+        serializers = ProfileSerializer(bio,many=False)
         return Response(serializers.data)
   
-class AddBio(APIView):  
+class AddProfile(APIView):  
     def post(self,request,format=None):
-        serializers = BioSerializer(data=request.data)
+        serializers = ProfileSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)

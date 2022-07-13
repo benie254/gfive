@@ -1,22 +1,40 @@
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser
 from cloudinary.models import CloudinaryField
+from pytz import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class User(AbstractUser):
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
-    username = None
+    # username = None
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
 
-class Bio(models.Model):
-    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
-    bio = models.CharField(max_length=255,null=True)
-    profile_photo = CloudinaryField('Featured image',null=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    profile_picture = CloudinaryField('Profile photo',null=True)
+    bio = models.TextField(max_length=500, default="My Bio", blank=True)
+    name = models.CharField(blank=True, max_length=120)
+    phone_number = models.CharField(blank=True, max_length=120)
+    email = models.CharField(max_length=60, blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save
 
 class Book(models.Model):
     title = models.CharField(max_length=60)
