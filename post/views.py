@@ -166,7 +166,8 @@ class BookComments(APIView):
         serializers = CommentSerializer(comments,many=True)
         return Response(serializers.data)
 
-    def post(self,request,book_id,format=None):
+class AddComment(APIView):
+    def post(self,request,format=None):
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()

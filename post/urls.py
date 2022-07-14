@@ -15,6 +15,7 @@ urlpatterns = [
     path('api/books/search/title-<str:book_title>/',views.SearchResults.as_view()),
     path('api/books/comments/',views.AllComments.as_view()),
     path('api/books/<int:book_id>/comments/',views.BookComments.as_view()),
+    path('api/books/add-comment/',views.AddComments.as_view()),
     path('api/books/ratings/',views.AllRatings.as_view()),
     path('api/books/<int:book_id>/ratings/',views.BookRatings.as_view()),
     path('api/user/<int:user_id>/profile/',views.UserProfile.as_view()),
