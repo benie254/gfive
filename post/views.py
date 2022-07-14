@@ -90,14 +90,20 @@ class LogoutView(APIView):
         return response
     
 
+class AllUserProfiles(APIView):
+    def get(self,request,user_id,format=None):
+        profiles = Profile.objects.all()
+        serializers = ProfileSerializer(profiles,many=True)
+        return Response(serializers.data)
+    
+
 class UserProfile(APIView):
     def get(self,request,user_id,format=None):
-        bio = Profile.objects.all().get(pk=user_id)
-        serializers = ProfileSerializer(bio,many=False)
+        profile = Profile.objects.all().get(pk=user_id)
+        serializers = ProfileSerializer(profile,many=False)
         return Response(serializers.data)
-  
-class AddProfile(APIView):  
-    def post(self,request,format=None):
+   
+    def post(self,request,user_id,format=None):
         serializers = ProfileSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -120,8 +126,8 @@ class OurBookLibrary(APIView):
     
 
 class BookDetails(APIView):
-    def get(self,request,pk,format=None):
-        books = Book.objects.all().get(pk=pk)
+    def get(self,request,book_id,format=None):
+        books = Book.objects.all().get(pk=book_id)
         serializers = BookSerializer(books,many=False)
         return Response(serializers.data)
 
@@ -154,14 +160,13 @@ class AllComments(APIView):
         return Response(serializers.data)  
     
 
-class Comments(APIView):
+class BookComments(APIView):
     def get(self,request,book_id,format=None):
         comments = Comment.objects.all().filter(pk=book_id)
         serializers = CommentSerializer(comments,many=True)
         return Response(serializers.data)
 
-class AddComment(APIView):
-    def post(self,request,format=None):
+    def post(self,request,book_id,format=None):
         serializers = CommentSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
@@ -176,15 +181,13 @@ class AllRatings(APIView):
         return Response(serializers.data)
     
 
-class Ratings(APIView):
+class BookRatings(APIView):
     def get(self,request,book_id,format=None):
         ratings = Rating.objects.all().filter(pk=book_id)
         serializers = RatingSerializer(ratings,many=True)
         return Response(serializers.data)
 
-
-class AddRating(APIView):
-    def post(self,request,format=None):
+    def post(self,request,book_id,format=None):
         serializers = RatingSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
